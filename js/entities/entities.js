@@ -13,7 +13,11 @@ game.PlayerEntity = me.Entity.extend({
         }]);
     
         this.body.setVelocity(5, 20);
+        
+        this.renderable.addAnimation("idle", [78]);
+        this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125], 80);
     
+        this.renderable.setCurrentAnimation("idle");
     },
     
     update: function(delta) {
@@ -22,18 +26,31 @@ game.PlayerEntity = me.Entity.extend({
             //setVelocity() and multiplying it by me.timer.tick
             //me.timer.tick makes the movement smooth
            this.body.vel.x += this.body.accel.x * me.timer.tick; 
+           this.flipX(true);
         }else if(me.input.isKeyPressed("left")) {
             this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            this.flipX(false);
         }else{
             this.body.vel.x = 0;
         }
         
-        this.body.update(delta);
-        return true;
-    
+        
+        if(this.body.vel.x !== 0){
+            console.log("moving");
+        if(!this.renderable.isCurrentAnimation("walk")){
+            this.renderable.setCurrentAnimation("walk");
+            
+            console.log("set walk");
+        }
+    }else{
+        this.renderable.setCurrentAnimation("idle");
+    }
+        
        
         
         this.body.update(delta);
+        
+        this._super(me.Entity, "update", [delta]);
         return true;
       }
       
