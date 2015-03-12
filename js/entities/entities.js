@@ -56,29 +56,14 @@ game.PlayerEntity = me.Entity.extend({
                 this.renderable.setAnimationFrame();
             }
         }
-        
-        
-        
-        else if (this.body.vel.x !== 0) {
+        else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")) {
             if (!this.renderable.isCurrentAnimation("walk")) {
                 this.renderable.setCurrentAnimation("walk");
             }
-        } else {
+        } else if(!this.renderable.isCurrentAnimation("attack")){
             this.renderable.setCurrentAnimation("idle");
         }
 
-        
-        if (me.input.isKeyPressed("attack")) {
-            if (!this.renderable.isCurrentAnimation("attack")) {
-                console.log(!this.renderable.isCurrentAnimation("attack"));
-                //sets current animation to attack
-                //then it goes back to idle
-                this.renderable.setCurrentAnimation("attack", "idle");
-                //Makes it so it begins from the first animation
-                //then goes back
-                this.renderable.setAnimationFrame();
-            }
-        }
         me.collision.check(this, true, this.collideHandler.bind(this), true);
         this.body.update(delta);
 
@@ -147,7 +132,6 @@ game.PlayerBaseEntity = me.Entity.extend({
     }
 });
 
-
 game.EnemyBaseEntity = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
@@ -169,7 +153,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 
         this.renderable.addAnimation("idle", [0]);
         this.renderable.addAnimation("broken", [1]);
-        this.renderable.setCurrentAnimation("idle")
+        this.renderable.setCurrentAnimation("idle");
     },
     update: function(delta) {
         if (this.health <= 0) {
@@ -180,7 +164,7 @@ game.EnemyBaseEntity = me.Entity.extend({
 
         this._super(me.Entity, "update", [delta]);
         return true;
-    },
+    }, 
     onCollision: function() {
 
     }
