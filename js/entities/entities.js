@@ -101,8 +101,11 @@ game.PlayerEntity = me.Entity.extend({
                 this.pos.x = this.pos.x +1;
             }
             
-            if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000){ 
-                console.log("tower Hit");
+            if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000
+                     && (Math.abs(ydif) <=40) && 
+                 (((xdif>0) && this.facing==="left") || ((xdif<0) && this.facing==="right"))
+                  ){
+                 console.log("tower Hit");
                 this.lastHit = this.now;
                 response.b.loseHealth();
            }
