@@ -9,7 +9,7 @@ var game = {
                 enemyBaseHealth: 10,
                 playerBaseHealth: 10,
                 enemyCreepHealth: 5,
-                playerHealth: 20,
+                playerHealth: 25,
                 enemyCreepAttack: 1,
                 playerAttack: 1,
 //                orcBaseDamage: 10,
@@ -22,6 +22,12 @@ var game = {
                 creepMoveSpeed: 5,
                 gameManager: "",
                 player: "",
+                exp: 0,
+                gold: 0,
+                exp1: 0,
+                exp2:0,
+                exp3: 0,
+                exp4: 0
                 
 	},
 	
@@ -66,6 +72,6 @@ var game = {
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 
 		// Start the game.
-		me.state.change(me.state.PLAY);
+		me.state.change(me.state.MENU);
 	}
 };

@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/RoyMAwsomenauts/js/entities/entities.js</file>
             <file>file:/C:/xampp/htdocs/RoyMAwsomenauts/js/screens/play.js</file>
-            <file>file:/C:/xampp/htdocs/RoyMAwsomenauts/</file>
+            <file>file:/C:/xampp/htdocs/RoyMAwsomenauts/index.php</file>
+            <file>file:/C:/xampp/htdocs/RoyMAwsomenauts/js/game.js</file>
+            <file>file:/C:/xampp/htdocs/RoyMAwsomenauts/js/resources.js</file>
         </group>
     </open-files>
 </project-private>
