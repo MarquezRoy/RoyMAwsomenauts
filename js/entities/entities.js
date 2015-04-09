@@ -1,7 +1,7 @@
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         this._super(me.Entity, 'init', [x, y, {
-                //Sets the player model and space it takes up to a variable
+               
                 image: "player",
                 width: 64,
                 height: 64,
@@ -11,6 +11,7 @@ game.PlayerEntity = me.Entity.extend({
                     return(new me.Rect(0, 0, 64, 64)).toPolygon();
                 }
         }]);
+    
         this.type = "PlayerEntity";
         this.health = game.data.playerHealth;
         this.body.setVelocity(game.data.playerMoveSpeed, 18);
