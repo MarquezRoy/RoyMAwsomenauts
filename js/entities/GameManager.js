@@ -19,7 +19,7 @@ game.GameManager = Object.extend({
             console.log("Current gold: " +game.data.gold);
         }    
         
-        if(Math.round(this.now/10)%10 ===0 && (this.now - this.lastCreep >= 10)){
+        if(Math.round(this.now/10)%10 ===0 && (this.now - this.lastCreep >= 100)){
             this.lastCreep = this.now;
             var creepe = me.pool.pull("EnemyCreep", 2000, 0, {});
             me.game.world.addChild(creepe, 5);
