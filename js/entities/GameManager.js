@@ -14,13 +14,15 @@ game.GameTimerManager = Object.extend({
         return true;
     },
     
+    //The rate at which you get Gold
     goldTimerCheck: function(){
         if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
-            game.data.gold += (game.data.exp1+1);
-            console.log("Current gold: " +game.data.gold);
+           game.data.gold += (game.data.exp1+1);
+           console.log("Current gold: " +game.data.gold);
         }    
     },
     
+    //Rate at which the creeps spawn
     creepTimerCheck: function(){
         if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
             this.lastCreep = this.now;
@@ -105,7 +107,7 @@ game.SpendGold = Object.extend({
         me.state.pause(me.state.PLAY);
         game.data.pausePos = me.game.viewport.localToWorld(0, 0);
         game.data.buyscreen = new me.Sprite(game.data.pausePos.x, game.data.pausePos.y, me.loader.getImage('gold-screen'));
-        game.data.buyscreen.update.updateWhenPaused = true;
+        game.data.buyscreen.updateWhenPaused = true;
         game.data.buyscreen.setOpacity(0.8);
         me.game.world.addChild(game.data.buyscreen, 34);
         game.data.player.body.setVelocity(0, 0);
@@ -119,29 +121,33 @@ game.SpendGold = Object.extend({
     },
     
     setBuyText: function(){
-         me.game.world.addChild(new (me.Renderable.extend({
+         game.data.buytext = new (me.Renderable.extend({
                    init: function(){
-                       this._super(me.Renderable, 'init', [10, 10, 300, 50]);
+                       this._super(me.Renderable, 'init', [game.data.pausePos.x, game.data.pausePos.y, 300, 50]);
                        this.font = new me.Font("Arial", 24, "white");
+                       this.alwaysUpdate = true;
+                       this.updateWhenPaused = true;
                    },
                    
                    draw: function(renderer){
-                     this.font.draw(renderer.getContext(), "Press F1-F4 to buy, B to exit", this.pos.x, this.pos.y);
+                     this.font.draw(renderer.getContext(), "PRESS F1-F4 TO BUY, B TO EXIT", this.pos.x, this.pos.y);
                    }
                                               
-                })));
+                }));
+                me.game.world.addChild(game.data.buytext, 35);
     },
     
     stopBuying: function(){
         this.buying = false;
         me.state.resume(me.state.PLAY);
-        me.game.body.setVelocity(game.data.playerMoveSpeed, 20);
+        game.data.player.body.setVelocity(game.data.playerMoveSpeed, 20);
         me.game.world.removeChild(game.data.buyscreen);
         me.input.unbindKey(me.input.KEY.F1, "F1", true);
         me.input.unbindKey(me.input.KEY.F2, "F2", true);
         me.input.unbindKey(me.input.KEY.F3, "F3", true);
         me.input.unbindKey(me.input.KEY.F4, "F4", true);
         me.input.unbindKey(me.input.KEY.F5, "F5", true);
+        me.game.world.removeChild(game.data.buytext);
     }
     
     
